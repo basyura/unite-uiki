@@ -14,7 +14,7 @@ function! unite#uiki#link_action()
     let matched = matchlist(expand('<cWORD>') , '\[\[\zs.*\ze\]\]')
     if len(matched) != 0
       execute 'edit! ' . matched[0] . '.uiki'
-      setfiletype uiki
+      "setfiletype uiki
     endif
   else
     execute "normal! \n"

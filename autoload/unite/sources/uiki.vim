@@ -61,7 +61,7 @@ let s:unite_source.action_table.common = s:action_table
 let s:action_table.open = {'description' : 'open uiki'}
 function! s:action_table.open.func(candidate)
   execute 'edit! ' . a:candidate.source__uiki.path
-  setfiletype uiki
+  "setfiletype uiki
 endfunction
 "
 " create sources
@@ -79,8 +79,4 @@ function! s:create_sources()
   endfor
   return list
 endfunction
-
-
-
-
 
