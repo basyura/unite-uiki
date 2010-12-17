@@ -48,6 +48,13 @@ function! s:unite_source.gather_candidates(args, context)
         \ "source"        : "uiki",
         \ "source__uiki"  : v:val
         \ }')
+  
+  call insert(s:candidates_cache , {
+        \ 'abbr'   : '[new page]' ,
+        \ 'word'   : 'new' ,
+        \ "source" : "uiki",
+        \ } , 0)
+
   return s:candidates_cache
 endfunction
 "
@@ -60,7 +67,14 @@ let s:unite_source.action_table.common = s:action_table
 "
 let s:action_table.open = {'description' : 'open uiki'}
 function! s:action_table.open.func(candidate)
-  execute 'edit! ' . a:candidate.source__uiki.path
+  if a:candidate.word == 'new'
+    let page_name = input('input new page name : ')
+    if page_name != ""
+      execute 'edit! ' . g:unite_uiki_path . '/' . page_name . '.uiki'
+    endif
+  else
+    execute 'edit! ' . a:candidate.source__uiki.path
+  endif
   "setfiletype uiki
 endfunction
 "
