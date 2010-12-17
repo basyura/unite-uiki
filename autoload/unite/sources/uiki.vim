@@ -61,14 +61,14 @@ let s:unite_source.action_table.common = s:action_table
 let s:action_table.open = {'description' : 'open uiki'}
 function! s:action_table.open.func(candidate)
   execute 'edit! ' . a:candidate.source__uiki.path
-  setfiletype 'uiki'
+  setfiletype uiki
 endfunction
 
 
 function! s:create_sources()
   let list = []
   for v in split(globpath(g:unite_uiki_path , '*.uiki') , '\n')
-    let fname  = fnamemodify(v , ':t')
+    let fname  = fnamemodify(v , ':t:r')
     let source = {
           \ 'abbr' : fname ,
           \ 'word' : fname ,
