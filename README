@@ -1,4 +1,9 @@
 
 a unite.vim plugin for wiki
 
-建設予定地
+軽量 wiki
+機能はほとんど無い
+  ファイルの削除は手動
+  検索は適当な grep を使って
+
+

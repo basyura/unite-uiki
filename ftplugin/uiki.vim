@@ -1,21 +1,12 @@
 " ftplugin for uiki
+if exists("b:current_ftplugin")
+  finish
+endif
 "
-nmap <silent> <buffer> <CR> :call <SID>uiki_link_action()<CR>
-"
-" 
-"
-function! s:uiki_link_action()
-  let matched = matchlist(expand('<cWORD>') , 'https\?://\S\+')
-  if len(matched) != 0
-    echohl yarm_ok | execute "OpenBrowser " . matched[0] | echohl None
-    return
-  endif
-  " get syntax id
-  let hiid = synIDattr(synID(line('.'),col('.'),1),'name')
+nmap <silent> <buffer> <CR> :call unite#uiki#link_action()<CR>
+"nmap <silent><buffer> <CR> <Plug>(uiki_link_action)
+"command! -buffer UikiLinkAction() call vimwiki#follow_link('vsplit')
+"nmap <silent><buffer> <Plug>(uiki_link_action) <SID>uiki_link_action()
 
-  if hiid =~ 'uiki_page_link\|uiki_link'
-    echo 'open page'
-  else
-    execute "normal! \n"
-  endif
-endfunction
+
+let b:current_ftplugin = 'uiki'

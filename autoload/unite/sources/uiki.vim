@@ -63,8 +63,9 @@ function! s:action_table.open.func(candidate)
   execute 'edit! ' . a:candidate.source__uiki.path
   setfiletype uiki
 endfunction
-
-
+"
+" create sources
+"
 function! s:create_sources()
   let list = []
   for v in split(globpath(g:unite_uiki_path , '*.uiki') , '\n')
