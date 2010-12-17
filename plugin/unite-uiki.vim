@@ -5,11 +5,11 @@ endif
 
 augroup uiki-group
   autocmd!
-  autocmd BufNewFile,BufRead *.uiki call s:unite_uiki_settings()
+  autocmd BufNewFile,BufRead *.uiki call <SID>unite_uiki_settings()
 augroup END
 
 function! s:unite_uiki_settings()
-  setfiletype uiki
+  setlocal filetype=uiki
   nmap <silent> <buffer> <CR> :call unite#uiki#link_action()<CR>
 endfunction
 
