@@ -7,7 +7,7 @@ endif
 setlocal conceallevel=2
 setlocal concealcursor=nc
 
-syntax match uiki_page_link "\[\[.*\]\]" contains=uiki_page_block
+syntax match uiki_page_link "\[\[.\{-}\]\]" contains=uiki_page_block
 syntax match uiki_strong /|[^|]\+|/ contains=uiki_strong_bar
 syntax match uiki_page_block /\[\[/ contained conceal
 syntax match uiki_page_block /\]\]/ contained conceal
