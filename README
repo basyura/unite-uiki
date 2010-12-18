@@ -1,9 +1,57 @@
 
-a unite.vim plugin for wiki
+a unite.vim plugin for uiki
 
-軽量 wiki
-機能はほとんど無い
-  ファイルの削除は手動
-  検索は適当な grep を使って
+wiki っぽい何か
 
+* 変数
 
+  " 保存先のディレクトリを指定する
+  let g:unite_uiki_path = '~/uiki'
+
+* 起動
+
+  :Unite uiki
+
+* ショートカット起動
+
+  ページ指定で開く map を定義する
+    nnoremap <silent><Leader><Leader>w :execute ':edit! ' . 
+                        \ g:unite_uiki_path . '/FrontPage.uiki'<CR>
+
+* 記法
+
+  page link
+    [[wiki_page]] 
+    Enter で指定のページ(wik_page)を開く
+
+  url link
+    http://wwww.google.com
+    Enter で指定のリンクを開く
+
+  syntax
+    * title1 
+      行頭が * 始まり
+    * title2
+      行頭以外で * 始まり
+    |strong|
+      ||で囲むと強調表示
+
+    (※) 各自が好きなように定義
+
+* ページ作成
+  
+   :Unite uiki で存在しないページ名を指定すると "[new page] ページ名"
+   と出るので、それを選択。
+
+* ページの削除
+
+  手動で(そのうち delete アクションで)
+
+* 検索
+
+  :Unite uiki でページ名検索可能
+  ページ内検索は各自 grep を使用する(そのうち grep アクションで)
+
+* 制限事項
+
+  空白を含むページを作れない
