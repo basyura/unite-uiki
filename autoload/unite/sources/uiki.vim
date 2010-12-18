@@ -1,6 +1,6 @@
 " uiki source for unite.vim
 " Version:     0.0.1
-" Last Modified: 17 Dec 2010
+" Last Modified: 18 Dec 2010
 " Author:      basyura <basyrua at gmail.com>
 " Licence:     The MIT License {{{
 "     Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,37 +25,42 @@
 "
 " variables
 "
+" let g:unite_uiki_path = '/tmp'
 "
 " source
 "
 function! unite#sources#uiki#define()
   return s:unite_source
 endfunction
-" cache
-let s:candidates_cache  = []
 "
 let s:unite_source      = {}
 let s:unite_source.name = 'uiki'
+let s:unite_source.is_volatile = 1
 let s:unite_source.default_action = {'common' : 'open'}
 let s:unite_source.action_table   = {}
 " create list
 function! s:unite_source.gather_candidates(args, context)
-  " cache issues
-  let s:candidates_cache = 
-        \ map(s:create_sources() , '{
-        \ "abbr"          : v:val.abbr ,
-        \ "word"          : v:val.word ,
-        \ "source"        : "uiki",
-        \ "source__uiki"  : v:val
+  " need cache ?
+  let candidates_cache = 
+        \ map(s:find_pages() , '{
+        \ "abbr"           : v:val.name ,
+        \ "word"           : v:val.name ,
+        \ "source"         : "uiki",
+        \ "source__path"   : v:val.path ,
         \ }')
-  
-  call insert(s:candidates_cache , {
-        \ 'abbr'   : '[new page]' ,
-        \ 'word'   : 'new' ,
-        \ "source" : "uiki",
-        \ } , 0)
+  " new page
+  let page = substitute(a:context.input, '\*', '', 'g')
+  let path = expand(g:unite_uiki_path . '/' . page . '.uiki' , ':p')
+  if page != '' && !filereadable(path)
+    call add(candidates_cache , {
+          \ 'abbr'           : '[new page] ' . page ,
+          \ 'word'           : page   ,
+          \ "source"         : "uiki" ,
+          \ "source__path"   : path   ,
+          \ })
+  endif
 
-  return s:candidates_cache
+  return candidates_cache
 endfunction
 "
 " action table
@@ -67,30 +72,18 @@ let s:unite_source.action_table.common = s:action_table
 "
 let s:action_table.open = {'description' : 'open uiki'}
 function! s:action_table.open.func(candidate)
-  if a:candidate.word == 'new'
-    let page_name = input('input new page name : ')
-    if page_name != ""
-      execute 'edit! ' . g:unite_uiki_path . '/' . page_name . '.uiki'
-    endif
-  else
-    execute 'edit! ' . a:candidate.source__uiki.path
-  endif
-  "setfiletype uiki
+  execute 'edit! ' . a:candidate.source__path
 endfunction
 "
-" create sources
+" - private functions -
 "
-function! s:create_sources()
-  let list = []
-  for v in split(globpath(g:unite_uiki_path , '*.uiki') , '\n')
-    let fname  = fnamemodify(v , ':t:r')
-    let source = {
-          \ 'abbr' : fname ,
-          \ 'word' : fname ,
-          \ 'path' : v
-          \ }
-    call add(list , source)
-  endfor
-  return list
+"
+" find pages
+"
+function! s:find_pages()
+  return map(split(globpath(g:unite_uiki_path , '*.uiki') , '\n') , '{
+          \ "name" : fnamemodify(v:val , ":t:r") ,
+          \ "path" : v:val
+          \ }')
 endfunction
 
