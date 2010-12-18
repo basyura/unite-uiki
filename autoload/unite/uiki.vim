@@ -10,7 +10,7 @@ function! unite#uiki#link_action()
   " get syntax id
   let hiid = synIDattr(synID(line('.'),col('.'),1),'name')
 
-  if hiid =~ 'uiki_page_link\|uiki_link'
+  if hiid =~ 'uiki_page_link\|uiki_link\|uiki_page_block'
     let matched = matchlist(expand('<cWORD>') , '\[\[\zs.*\ze\]\]')
     if len(matched) != 0
       execute 'edit! ' . matched[0] . '.uiki'
