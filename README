@@ -3,6 +3,14 @@ a unite.vim plugin for uiki
 
 wiki っぽい何か
 
+* 必要なもの
+
+	unite.vim
+	https://github.com/Shougo/unite.vim
+
+	open-browser.vim
+	https://github.com/tyru/open-browser.vim
+
 * 変数
 
   " 保存先のディレクトリを指定する
