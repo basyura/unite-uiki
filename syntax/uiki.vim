@@ -16,16 +16,18 @@ syntax match uiki_strong_bar /|/ contained conceal
 syntax match uiki_link       "\<http://\S\+"  
 syntax match uiki_link       "\<https://\S\+"
 
+syntax match uiki_title0  "^:::.*"
 syntax match uiki_title1  "^\* .*"
-syntax match uiki_title2  "\s\* .*"
+syntax match uiki_title2  "^\s\{-1,}\*.*"
 
 
 highlight default link uiki_page_link  Underlined
 highlight default link uiki_page_block Statement
-
 highlight default link uiki_link       Underlined
-highlight uiki_title1  guifg=orange  gui=underline
-highlight uiki_title2  guifg=orange
+
+highlight uiki_title0 guifg=#FF80FF
+highlight uiki_title1 guifg=orange  gui=underline
+highlight uiki_title2 guifg=orange
 
 highlight uiki_strong guifg=#FF80FF
 
