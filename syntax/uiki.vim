@@ -17,8 +17,10 @@ syntax match uiki_link       "\<http://\S\+"
 syntax match uiki_link       "\<https://\S\+"
 
 syntax match uiki_title0  "^:::.*"
-syntax match uiki_title1  "^\* .*"
+syntax match uiki_title1  "^\*.*" contains=uiki_title1_mark
 syntax match uiki_title2  "^\s\{-1,}\*.*"
+
+syntax match uiki_title1_mark "^*" contained conceal
 
 
 highlight default link uiki_page_link  Underlined
