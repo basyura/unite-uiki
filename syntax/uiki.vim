@@ -20,12 +20,15 @@ syntax match uiki_title0  "^:::.*"
 syntax match uiki_title1  "^\*.*" contains=uiki_title1_mark
 syntax match uiki_title2  "^\s\{-1,}\*.*"
 
+syntax match uiki_comment "^#.*"
+
 syntax match uiki_title1_mark "^*" contained conceal
 
 
 highlight default link uiki_page_link  Underlined
 highlight default link uiki_page_block Statement
 highlight default link uiki_link       Underlined
+highlight default link uiki_comment    Comment
 
 highlight uiki_title0 guifg=#FF80FF
 highlight uiki_title1 guifg=orange  gui=underline
