@@ -1,6 +1,6 @@
 " uiki source for unite.vim
 " Version:     0.0.1
-" Last Modified: 18 Dec 2010
+" Last Modified: 25 Mar 2011
 " Author:      basyura <basyrua at gmail.com>
 " Licence:     The MIT License {{{
 "     Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,32 +35,31 @@ endfunction
 "
 let s:unite_source      = {}
 let s:unite_source.name = 'uiki'
-let s:unite_source.is_volatile = 1
 let s:unite_source.default_action = {'common' : 'open'}
 let s:unite_source.action_table   = {}
 " create list
 function! s:unite_source.gather_candidates(args, context)
-  " need cache ?
-  let candidates_cache = 
-        \ map(s:find_pages() , '{
-        \ "abbr"           : v:val.name ,
-        \ "word"           : v:val.name ,
-        \ "source"         : "uiki",
-        \ "source__path"   : v:val.path ,
+  return map(s:find_pages() , '{
+        \ "abbr"         : v:val.name ,
+        \ "word"         : v:val.name ,
+        \ "source"       : "uiki",
+        \ "source__path" : v:val.path ,
         \ }')
-  " new page
+endfunction
+" new page
+function! s:unite_source.change_candidates(args, context)
   let page = substitute(a:context.input, '\*', '', 'g')
   let path = expand(g:unite_uiki_path . '/' . page . '.uiki' , ':p')
   if page != '' && !filereadable(path)
-    call add(candidates_cache , {
-          \ 'abbr'           : '[new page] ' . page ,
-          \ 'word'           : page   ,
-          \ "source"         : "uiki" ,
-          \ "source__path"   : path   ,
-          \ })
+    return [{
+          \ 'abbr'         : '[new page] ' . page ,
+          \ 'word'         : page   ,
+          \ "source"       : "uiki" ,
+          \ "source__path" : path   ,
+          \ }]
+  else
+    return []
   endif
-
-  return candidates_cache
 endfunction
 "
 " action table
