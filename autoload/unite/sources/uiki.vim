@@ -33,10 +33,12 @@ function! unite#sources#uiki#define()
   return s:unite_source
 endfunction
 "
-let s:unite_source      = {}
-let s:unite_source.name = 'uiki'
-let s:unite_source.default_action = {'common' : 'open'}
-let s:unite_source.action_table   = {}
+let s:unite_source = {
+      \ 'name'           : 'uiki' ,
+      \ 'description'    : 'candidates from uiki(wiki) pages' ,
+      \ 'default_action' : {'common' : 'open'} ,
+      \ 'action_table'   : {'common' : {}}
+      \ }
 " create list
 function! s:unite_source.gather_candidates(args, context)
   return map(s:find_pages() , '{
@@ -61,16 +63,11 @@ function! s:unite_source.change_candidates(args, context)
     return []
   endif
 endfunction
-"
-" action table
-"
-let s:action_table = {}
-let s:unite_source.action_table.common = s:action_table
 " 
 " action - open
 "
-let s:action_table.open = {'description' : 'open uiki'}
-function! s:action_table.open.func(candidate)
+let s:unite_source.action_table.common.open = {'description' : 'open uiki'}
+function! s:unite_source.action_table.common.open.func(candidate)
   execute 'edit! ' . a:candidate.source__path
 endfunction
 "
