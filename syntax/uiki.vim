@@ -8,10 +8,10 @@ setlocal conceallevel=2
 setlocal concealcursor=nc
 
 syntax match uiki_page_link "\[\[.\{-1,}\]\]" contains=uiki_page_block
-syntax match uiki_strong /|[^|]\+|/ contains=uiki_strong_bar
+syntax match uiki_strong /![^!]\+!/ contains=uiki_strong_bar
 syntax match uiki_page_block /\[\[/ contained conceal
 syntax match uiki_page_block /\]\]/ contained conceal
-syntax match uiki_strong_bar /|/ contained conceal
+syntax match uiki_strong_bar /!/ contained conceal
 
 syntax match uiki_link       "\<http://\S\+"  
 syntax match uiki_link       "\<https://\S\+"
