@@ -2,7 +2,7 @@
 " 
 "
 function! unite#uiki#link_action()
-  let matched = matchlist(expand('<cWORD>') , 'https\?://\S\+')
+  let matched = matchlist(expand('<cWORD>') , 'https\?://[0-9a-zA-Z\.?=&\/%_:+]\+')
   if len(matched) != 0
     echohl yarm_ok | execute "OpenBrowser " . matched[0] | echohl None
     return
