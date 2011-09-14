@@ -4,7 +4,8 @@ if exists('b:current_syntax')
   finish
 endif
 
-runtime! syntax/markdown.vim
+"runtime! syntax/markdown.vim
+runtime! syntax/textile.vim
 
 setlocal conceallevel=2
 setlocal concealcursor=nc
