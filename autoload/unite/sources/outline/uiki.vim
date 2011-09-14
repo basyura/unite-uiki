@@ -1,8 +1,6 @@
-" this file is copied unite-outline's markdown outline.
 "=============================================================================
-" File    : autoload/unite/sources/outline/defaults/markdown.vim
-" Author  : h1mesuke <himesuke@gmail.com>
-" Updated : 2011-08-29
+"
+" outline for textile
 "
 " Licensed under the MIT license:
 " http://www.opensource.org/licenses/mit-license.php
