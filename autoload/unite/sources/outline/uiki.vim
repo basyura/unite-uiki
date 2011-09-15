@@ -7,9 +7,6 @@
 "
 "=============================================================================
 
-" Default outline info for Markdown
-" Version: 0.0.5
-
 function! unite#sources#outline#uiki#outline_info()
   return s:outline_info
 endfunction
