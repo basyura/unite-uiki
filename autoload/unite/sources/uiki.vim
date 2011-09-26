@@ -1,6 +1,5 @@
 " uiki source for unite.vim
-" Version:     0.0.1
-" Last Modified: 25 Mar 2011
+"
 " Author:      basyura <basyrua at gmail.com>
 " Licence:     The MIT License {{{
 "     Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,8 +35,6 @@ endfunction
 let s:unite_source = {
       \ 'name'           : 'uiki' ,
       \ 'description'    : 'candidates from uiki(wiki) pages' ,
-      \ 'default_action' : {'common' : 'open'} ,
-      \ 'action_table'   : {'common' : {}}
       \ }
 " create list
 function! s:unite_source.gather_candidates(args, context)
@@ -45,7 +42,8 @@ function! s:unite_source.gather_candidates(args, context)
         \ "abbr"         : v:val.name ,
         \ "word"         : v:val.name ,
         \ "source"       : "uiki",
-        \ "source__path" : v:val.path ,
+        \ "kind"         : "file" ,
+        \ "action__path" : v:val.path ,
         \ }')
 endfunction
 " new page
@@ -57,22 +55,13 @@ function! s:unite_source.change_candidates(args, context)
           \ 'abbr'         : '[new page] ' . page ,
           \ 'word'         : page   ,
           \ "source"       : "uiki" ,
-          \ "source__path" : path   ,
+          \ "kind"         : "file" ,
+          \ "action__path" : path   ,
           \ }]
   else
     return []
   endif
 endfunction
-" 
-" action - open
-"
-let s:unite_source.action_table.common.open = {'description' : 'open uiki'}
-function! s:unite_source.action_table.common.open.func(candidate)
-  execute 'edit! ' . a:candidate.source__path
-endfunction
-"
-" - private functions -
-"
 "
 " find pages
 "
