@@ -1,7 +1,7 @@
 " syntax for uiki
 "
 if exists('b:current_syntax')
-  finish
+"  finish
 endif
 
 "runtime! syntax/markdown.vim
@@ -28,9 +28,17 @@ syntax match uiki_page_block /\]\]/ contained conceal
 "syntax match uiki_title1_mark "^*" contained conceal
 
 
+syntax match uiki_pre_start /^<pre>.*/
+syntax match uiki_pre_end   /.*<\/pre>$/
+
 highlight default link uiki_page_link  Underlined
 highlight default link uiki_page_block Statement
 highlight default link uiki_link       Underlined
+highlight default link uiki_pre        Type
+"highlight default link uiki_pre_start  Comment
+"highlight default link uiki_pre_end    Comment
+highlight uiki_pre_start  guifg=#696969
+highlight uiki_pre_end    guifg=#696969
 "highlight default link uiki_comment    Comment
 
 "highlight uiki_title0 guifg=#FF80FF
