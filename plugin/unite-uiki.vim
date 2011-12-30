@@ -34,20 +34,15 @@ function! s:apply_code_syntax()
         if len(syntaxfile)
           let b:apply_langs[lang] = syntaxfile
           exec 'syntax include @inline_' . lang . ' ' . syntaxfile
-          exec 'syntax region uiki_code matchgroup=uiki_hide start=+^<pre><code\s\+class="'.lang.'">+ end=+^<\/code><\/pre>$+ contains=@inline_' . lang
-
-          let b:inc  = 'syntax include @inline_' . lang . ' ' . syntaxfile
-          let b:sync = 'syntax region uiki_code matchgroup=uiki_hide start=+^<pre><code\s\+class="'.lang.'">+ end=+^<\/code><\/pre>$+ contains=@inline_' . lang
+          exec 'syntax region uiki_code matchgroup=uiki_hide start=+<code\s\+class="'.lang.'">+ end=+<\/code>+ contains=@inline_' . lang
         endif
       endif
     end
     let lnum = lnum + 1
   endwhile
-  " workaround for perl
-  "silent exec "syn cluster inline_perl remove=perlFunctionName"
-  " redefine
-  syntax match uiki_pre_start /^<pre>.*/
-  syntax match uiki_pre_end   /.*<\/pre>$/
+  " redefine syntax that changed by xml syntax
+  syntax match uiki_pre_start /^<pre>/
+  syntax match uiki_pre_end   /<\/pre>$/
 endfunction
 
 let g:loaded_unite_uiki = 1
