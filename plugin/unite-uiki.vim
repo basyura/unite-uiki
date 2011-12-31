@@ -16,9 +16,11 @@ endfunction
 
 " from hatena.vim
 function! s:apply_code_syntax()
+  let g:main_syntax = 'textile'
   if !exists('b:apply_code_sytanx')
     let b:apply_langs = {}
     autocmd BufEnter <buffer> call s:apply_code_syntax()
+    autocmd BufWritePost <buffer> call s:apply_code_syntax()
   endif
   let lnum = 1
   let lmax = line("$")
@@ -43,6 +45,7 @@ function! s:apply_code_syntax()
   " redefine syntax that changed by xml syntax
   syntax match uiki_pre_start /^<pre>/
   syntax match uiki_pre_end   /<\/pre>$/
+  unlet g:main_syntax
 endfunction
 
 let g:loaded_unite_uiki = 1
