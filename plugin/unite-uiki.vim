@@ -11,7 +11,7 @@ augroup END
 function! s:unite_uiki_settings()
   setlocal filetype=uiki
   nmap <silent> <buffer> <CR> :call unite#uiki#link_action()<CR>
-  call s:apply_code_syntax()
+  "call s:apply_code_syntax()
 endfunction
 
 " from hatena.vim

@@ -1,6 +1,6 @@
 " syntax for uiki
 
-runtime! syntax/textile.vim
+runtime! syntax/markdown.vim
 
 setlocal conceallevel=2
 setlocal concealcursor=nc
