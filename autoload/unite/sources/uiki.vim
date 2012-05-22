@@ -66,9 +66,9 @@ endfunction
 " find pages
 "
 function! s:find_pages()
-  return map(split(globpath(g:unite_uiki_path , '*.uiki') , '\n') , '{
+  return reverse(map(split(globpath(g:unite_uiki_path , '*.uiki') , '\n') , '{
           \ "name" : fnamemodify(v:val , ":t:r") ,
           \ "path" : v:val
-          \ }')
+          \ }'))
 endfunction
 
