@@ -38,13 +38,25 @@ let s:unite_source = {
       \ }
 " create list
 function! s:unite_source.gather_candidates(args, context)
-  return map(s:find_pages() , '{
-        \ "abbr"         : v:val.name ,
-        \ "word"         : v:val.name ,
+  let ret = []
+  for val in s:find_pages()
+    let candidate = {
+        \ "abbr"         : val.name ,
+        \ "word"         : val.name ,
         \ "source"       : "uiki",
         \ "kind"         : "file" ,
-        \ "action__path" : v:val.path ,
-        \ }')
+        \ "action__path" : val.path ,
+        \ }
+    let keys = split(val.name, '_')
+    if len(keys) == 3
+     let candidate.abbr = s:padding("[" . keys[1] . "]", 5) . " " . s:padding(keys[2], 25)
+     if keys[0] != "00000000"
+       let candidate.abbr .= " " . keys[0]
+     endif
+    endif
+    call add(ret, candidate)
+  endfor
+  return ret
 endfunction
 " new page
 function! s:unite_source.change_candidates(args, context)
@@ -72,3 +84,11 @@ function! s:find_pages()
           \ }'))
 endfunction
 
+
+function! s:padding(msg, len)
+  let msg = a:msg
+  while strwidth(msg) < a:len
+    let msg .= ' '
+  endwhile
+  return msg
+endfunction
