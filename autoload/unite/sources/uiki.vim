@@ -49,9 +49,9 @@ function! s:unite_source.gather_candidates(args, context)
         \ }
     let keys = split(val.name, '_')
     if len(keys) == 3
-     let candidate.abbr = s:padding("[" . keys[1] . "]", 5) . " " . s:padding(keys[2], 25)
+     let candidate.abbr = s:padding("[" . keys[1] . "]", 5) . " " . s:padding(keys[2], 32)
      if keys[0] != "00000000"
-       let candidate.abbr .= " " . keys[0]
+       let candidate.abbr .= " " . strpart(keys[0], 4, 2) . '/' . strpart(keys[0], 6, 2)
      endif
     endif
     call add(ret, candidate)
